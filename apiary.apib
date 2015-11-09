@@ -1,0 +1,136 @@
+FORMAT: 1A
+HOST: https://v1-file.api.dudesolutions.io
+
+GENERATEASYNCCODE: TRUE
+USEMETHODPREFIX: TRUE
+USEMODELPOSTFIX: FALSE
+USECONTROLLERPOSTFIX: FALSE
+USEENUMPOSTFIX: FALSE
+USECONSTRUCTORSFORCONFIG: TRUE
+CSHARPDEFAULTNAMESPACE: DSI.SDK.File
+
+# Dude File Api
+![Dude Solutions](https://dudesolutions.com/assets/img/logo.png)
+
+## Authentication
+*Dude File Api* uses OAuth v2 Authentication. First you create a new (or acquire existing) OAuth v2 token using [DudeAuth](https://www.dudeauth.com/).
+
+New to *OAuth*?  Check out the [OAuth Bible](http://oauthbible.com/) for good reference material.
+
+# Group Files
+The file collection allows for file resources to be manipulated and found.
+
+## Collection [/accounts/{accountId}/file/{id}]
+
++ Parameters
+    + id (number, required) - The file ID for the desired resource.
+
+    + accountId (string, required) - The account ID the resource belongs to.
+
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (FileDescriptor)
+
+### PUT
+
++ Request (application/json)
+    + Attributes (FileDescriptor)
+
++ Response 200 (application/json)
+    + Attributes (FileDescriptor)
+
+### DELETE
+
++ Response 204
+
+## Upload [/accounts/{accountId}/file/upload]
+
++ Parameters
+    + accountId (string, required) - The account ID for the upload to be associated with.
+
+
+### Upload [POST]
+
++ Response 200 (application/json)
+    + Attributes (FileDescriptor)
+
+## Download [/accounts/{accountId}/file/{id}/download]
+
++ Parameters
+    + accountId (number, required) - The account ID the resource belongs to.
+    + id (number, required) - The file ID for the desired resource.
+
+
+### Download [GET]
+
++ Response 200 (application/json)
+
+
+## Public Download [/file/public/{token}]
+
++ Parameters
+    + token (string, required) - A pre-generated and self-encapsulated token to access a specific file resource.
+
+### Download [GET]
+
++ Response 200 (application/json)
+
+
+
+# Group Heartbeat
+
+## Heartbeat [/heartbeat]
+The heartbeat is exposed and provided to check for availability of the service.
+Any response that does not provide a ```200 OK``` response code should be treated as an error.
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Heartbeat)
+
+# Data Structures
+
+## FileDescriptor (object)
+Represents a file resource.
+
+### Properties
++ `id` (number, required) - The unique ID for the file resource.
++ `filename` (string, required) - The display filename for the file resource.
++ `size` (number, required) - The size (in bytes) for the file resource.
++ `mime` (string, required) - The MIME type for the file resource.
++ `fileState` (enum, required) - The state or status or the file resource.
+    + `StorageRequestReceived`
+    + `VirusScanPending`
+    + `Uploaded`
+    + `Preprocessed`
+    + `Errored`
++ `fileType` (enum, required) - The type of file resource.
+    + `System`
+    + `User`
++ `downloadUri` (string, required) - The URI that can be used to download the file securely.
++ `shareableUri` (string, required) - The URI that can be used to access the file without logging in.
++ `createdByUser` (User, required) - The user who created the file resource.
++ `createdDateTime` (string, optional) - The UTC date and time the file resource was created.
++ `updatedByUser` (User, required) - The user who last updated the file resource.
++ `updatedDateTime` (string, optional) - The UTC date and time the file resource was last updated.
+
+
+## User (object)
+Represents a user.
+
+### Properties
++ `id` (number, required) - The unique ID that represents the user.
++ `firstName` (string, required) - The first name of the user.
++ `lastName` (string, required) - The last name of the user.
++ `email` (string, required) - The email of the user.
+
+## Heartbeat (object)
+Represents a heartbeat response.
+
+### Properties
++ `cachevitalcheck`: true (boolean, required) - Vital check to ensure Cache provider is online.
++ `filestoragevitalcheck`: true (boolean, required) - Vital check to ensure file storage provider is online.
++ `filedbvitalcheck`: true (boolean, required) - Vital check to ensure database provider is online.
++ `symantecantivirusprovidervitalcheck`: true (boolean, required) - Vital check to ensure malware provider is online.
