@@ -22,6 +22,26 @@ USERAGENT: Dude SDK
 
 New to *OAuth*?  Check out the [OAuth Bible](http://oauthbible.com/) for good reference material.
 
+# Group System Information
+
+## System Information [/]
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (System Information)
+
+# Group Heartbeat
+
+## Heartbeat [/heartbeat]
+The heartbeat is exposed and provided to check for availability of the service.
+Any response that does not provide a ```200 OK``` response code should be treated as an error.
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Heartbeat)
+
 # Group Files
 The file collection allows for file resources to be manipulated and found.
 
@@ -82,32 +102,10 @@ The file collection allows for file resources to be manipulated and found.
 
 + Response 200 (application/json)
 
-
-
-# Group Heartbeat
-
-## Heartbeat [/heartbeat]
-The heartbeat is exposed and provided to check for availability of the service.
-Any response that does not provide a ```200 OK``` response code should be treated as an error.
-
-### GET
-
-+ Response 200 (application/json)
-    + Attributes (Heartbeat)
-
-# System Information
-
-## System Information [/]
-
-### GET
-
-+ Response 200 (application/json)
-    + Attributes (System Information)
-
 # Data Structures
 
 ## System Information (object)
-+ `application`: `Dude Unified Api` (string, required) - The name of the application.
++ `application`: `Dude File Api` (string, required) - The name of the application.
 + `version` : `1.0.0.0` (string, required) - The assembly version.
 + `apiVersion` : `1.0.0.0` (string, required) - The API version.
 + `vitals` (Heartbeat, required) - The state of the system dependencies.
