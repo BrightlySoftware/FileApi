@@ -45,26 +45,24 @@ Any response that does not provide a ```200 OK``` response code should be treate
 # Group Files
 The file collection allows for file resources to be manipulated and found.
 
-## Collection [/accounts/{accountId}/file/{id}]
+## Detail [/accounts/{accountId}/file/{id}]
 
 + Parameters
-    + id (number, required) - The file ID for the desired resource.
-
-    + accountId (string, required) - The account ID the resource belongs to.
-
+    + id (number, required) - {INT} The file ID for the desired resource.
+    + accountId (number, required) - {INT} The account ID the resource belongs to.
 
 ### GET
 
 + Response 200 (application/json)
-    + Attributes (FileDescriptor)
+    + Attributes (File Descriptor)
 
 ### PUT
 
 + Request (application/json)
-    + Attributes (FileDescriptor)
+    + Attributes (File Descriptor)
 
 + Response 200 (application/json)
-    + Attributes (FileDescriptor)
+    + Attributes (File Descriptor)
 
 ### DELETE
 
@@ -73,25 +71,25 @@ The file collection allows for file resources to be manipulated and found.
 ## Upload [/accounts/{accountId}/file/upload]
 
 + Parameters
-    + accountId (string, required) - The account ID for the upload to be associated with.
-
+    + accountId (number, required) - {INT} The account ID for the upload to be associated with.
 
 ### Upload [POST]
 
-+ Response 200 (application/json)
-    + Attributes (FileDescriptor)
++ Request (application/json)
+    + Attributes (File Descriptor Create)
+
++ Response 201 (application/json)
+    + Attributes (File Descriptor)
 
 ## Download [/accounts/{accountId}/file/{id}/download]
 
 + Parameters
-    + accountId (number, required) - The account ID the resource belongs to.
-    + id (number, required) - The file ID for the desired resource.
-
+    + accountId (number, required) - {INT} The account ID the resource belongs to.
+    + id (number, required) - {INT} The file ID for the desired resource.
 
 ### Download [GET]
 
 + Response 200 (application/json)
-
 
 ## Public Download [/file/public/{token}]
 
@@ -116,13 +114,18 @@ The file collection allows for file resources to be manipulated and found.
 + `action` : `Get` (string, required) - The REST action.
 + `route` : `/accounts/{accountId}/workorders` (string, required) - The route to the endpoint.
 
-## FileDescriptor (object)
+## File Descriptor (File Descriptor Create)
 Represents a file resource.
 
 ### Properties
-+ `id` (number, required) - The unique ID for the file resource.
++ `id` (number, required) - {INT} The unique ID for the file resource.
+
+## File Descriptor Create(object)
+Represents a file resource.
+
+### Properties
 + `filename` (string, required) - The display filename for the file resource.
-+ `size` (number, required) - The size (in bytes) for the file resource.
++ `size` (number, required) - {INT} The size (in bytes) for the file resource.
 + `mime` (string, required) - The MIME type for the file resource.
 + `fileState` (enum, required) - The state or status or the file resource.
     + `StorageRequestReceived`
@@ -140,12 +143,11 @@ Represents a file resource.
 + `updatedByUser` (User, required) - The user who last updated the file resource.
 + `updatedDateTime` (string, optional) - The UTC date and time the file resource was last updated.
 
-
 ## User (object)
 Represents a user.
 
 ### Properties
-+ `id` (number, required) - The unique ID that represents the user.
++ `id` (number, required) - {INT} The unique ID that represents the user.
 + `firstName` (string, required) - The first name of the user.
 + `lastName` (string, required) - The last name of the user.
 + `email` (string, required) - The email of the user.
