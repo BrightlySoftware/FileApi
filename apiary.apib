@@ -45,11 +45,12 @@ Any response that does not provide a ```200 OK``` response code should be treate
 # Group Files
 The file collection allows for file resources to be manipulated and found.
 
-## Detail [/accounts/{accountId}/file/{id}]
+## Detail [/accounts/{accountId}/file/{id}{?includeAudit}]
 
 + Parameters
     + id (number, required) - {INT} The file ID for the desired resource.
     + accountId (number, required) - {INT} The account ID the resource belongs to.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### GET
 
@@ -68,7 +69,7 @@ The file collection allows for file resources to be manipulated and found.
 
 + Response 204
 
-## Upload [/accounts/{accountId}/file/upload]
+## Upload [/accounts/{accountId}/file/upload{?includeAudit}]
 
 + Parameters
     + accountId (number, required) - {INT} The account ID for the upload to be associated with.
