@@ -52,8 +52,10 @@ None at this time
 In Progress
 
 # Group System Information
+Check API System Information
 
-## System Information [/]
+## S.I. Check [/]
+Retrieve api version, vitals, links, etc.
 
 ### GET
 
@@ -61,14 +63,20 @@ In Progress
     + Attributes (System Information)
 
 # Group Heartbeat
+Check health of dependent services
 
-## Heartbeat [/heartbeat]
+## Heartbeat Check [/heartbeat]
 The heartbeat is exposed and provided to check for availability of the service.
 Any response that does not provide a ```200 OK``` response code should be treated as an error.
 
 ### GET
 
 + Response 200 (application/json)
+    + Headers
+
+            X-Dude-Api-Limit: Unlimited or Number
+            X-Dude-Api-Remaining: Unlimited or Number
+            X-Dude-Api-Server: Api Server ID
     + Attributes (Heartbeat)
 
 # Group Files
@@ -145,6 +153,15 @@ The file collection allows for file resources to be manipulated and found.
 + `action` : `Get` (string, required) - The REST action.
 + `route` : `/accounts/{accountId}/workorders` (string, required) - The route to the endpoint.
 
+## Heartbeat (object)
+Represents a heartbeat response.
+
+### Properties
++ `cachevitalcheck`: true (boolean, required) - Vital check to ensure Cache provider is online.
++ `filestoragevitalcheck`: true (boolean, required) - Vital check to ensure file storage provider is online.
++ `filedbvitalcheck`: true (boolean, required) - Vital check to ensure database provider is online.
++ `symantecantivirusprovidervitalcheck`: true (boolean, required) - Vital check to ensure malware provider is online.
+
 ## File Descriptor (File Descriptor Create)
 Represents a file resource.
 
@@ -182,12 +199,3 @@ Represents a user.
 + `firstName` (string, required) - The first name of the user.
 + `lastName` (string, required) - The last name of the user.
 + `email` (string, required) - The email of the user.
-
-## Heartbeat (object)
-Represents a heartbeat response.
-
-### Properties
-+ `cachevitalcheck`: true (boolean, required) - Vital check to ensure Cache provider is online.
-+ `filestoragevitalcheck`: true (boolean, required) - Vital check to ensure file storage provider is online.
-+ `filedbvitalcheck`: true (boolean, required) - Vital check to ensure database provider is online.
-+ `symantecantivirusprovidervitalcheck`: true (boolean, required) - Vital check to ensure malware provider is online.
