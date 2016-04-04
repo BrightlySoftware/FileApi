@@ -98,7 +98,7 @@ This endpoint allows for existing file descriptor data to be found and manipulat
 ### PUT
 
 + Request (application/json)
-    + Attributes (File Descriptor)
+    + Attributes (Update File Descriptor)
 
 + Response 200 (application/json)
     + Attributes (File Descriptor)
@@ -107,7 +107,8 @@ This endpoint allows for existing file descriptor data to be found and manipulat
 
 + Response 204
 
-## Upload [/accounts/{accountId}/file/upload{?includeAudit}]
+## File Upload [/accounts/{accountId}/file/upload{?includeAudit}]
+This endpoint allows for new file descriptor data to be created.
 
 + Parameters
     + accountId (number, required) - {INT} The account ID for the upload to be associated with.
@@ -116,12 +117,13 @@ This endpoint allows for existing file descriptor data to be found and manipulat
 ### Upload [POST]
 
 + Request (application/json)
-    + Attributes (File Descriptor Create)
+    + Attributes (Base File Descriptor)
 
 + Response 201 (application/json)
     + Attributes (File Descriptor)
 
-## Download [/accounts/{accountId}/file/{id}/download]
+## File Download [/accounts/{accountId}/file/{id}/download]
+This endpoint allows for an existing file resource to be downloaded.
 
 + Parameters
     + accountId (number, required) - {INT} The account ID the resource belongs to.
@@ -132,6 +134,7 @@ This endpoint allows for existing file descriptor data to be found and manipulat
 + Response 200 (application/json)
 
 ## Public Download [/file/public/{token}]
+This endpoint allows for an existing file resource to be downloaded based on token access.
 
 + Parameters
     + token (string, required) - A pre-generated and self-encapsulated token to access a specific file resource.
@@ -143,7 +146,7 @@ This endpoint allows for existing file descriptor data to be found and manipulat
 # Data Structures
 
 ## System Information (object)
-Represents the System Information response
+Represents the System Information response.
 
 ### Properties
 + `application`: `Dude File Api` (string, required) - The name of the application.
@@ -153,7 +156,7 @@ Represents the System Information response
 + `links` (array[System Links], required) - The API routes.
 
 ## System Links (object)
-Represents the API routes
+Represents the API routes.
 
 ### Properties
 + `endpoint` : `FileDescriptor` (string, required) - The name of the endpoint.
@@ -169,14 +172,8 @@ Represents a heartbeat response.
 + `filedbvitalcheck`: true (boolean, required) - Vital check to ensure database provider is online.
 + `symantecantivirusprovidervitalcheck`: true (boolean, required) - Vital check to ensure malware provider is online.
 
-## File Descriptor (File Descriptor Create)
-Represents a file resource.
-
-### Properties
-+ `id` (number, required) - {INT} The unique ID for the file resource.
-
-## File Descriptor Create(object)
-Represents a file resource.
+## Base File Descriptor (object)
+Represents a file resource with base properties.
 
 ### Properties
 + `filename` (string, required) - The display filename for the file resource.
@@ -193,13 +190,24 @@ Represents a file resource.
     + `User`
 + `downloadUri` (string, required) - The URI that can be used to download the file securely.
 + `shareableUri` (string, required) - The URI that can be used to access the file without logging in.
-+ `createdByUser` (User, required) - The user who created the file resource.
-+ `createdDateTime` (string, optional) - The UTC date and time the file resource was created.
-+ `updatedByUser` (User, required) - The user who last updated the file resource.
-+ `updatedDateTime` (string, optional) - The UTC date and time the file resource was last updated.
 
-## User (object)
-Represents a user.
+## Update File Descriptor (Base File Descriptor)
+Represents a file resource with properties required for an update.
+
+### Properties
++ `id` (number, required) - {INT} The unique ID for the file resource.
+
+## File Descriptor (Update File Descriptor)
+Represents a file resource with all properties included.
+
+### Properties
++ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The date and time in ISO-8601 format the record was created.
++ `createdByUser` (Base User Object, optional) - Information about the user who created the record.
++ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The date and time in ISO-8601 format the record was last updated.
++ `updatedByUser` (Base User Object, optional) - Information about the user who last modified the record.
+
+## Base User Object (object)
+Represents a user with base properties.
 
 ### Properties
 + `id` (number, required) - {INT} The unique ID that represents the user.
