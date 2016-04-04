@@ -176,9 +176,9 @@ Represents a heartbeat response.
 Represents a file resource with base properties.
 
 ### Properties
-+ `filename` (string, required) - The display filename for the file resource.
-+ `size` (number, required) - {INT} The size (in bytes) for the file resource.
-+ `mime` (string, required) - The MIME type for the file resource.
++ `filename`: procedure.pdf (string, required) - The display filename for the file resource.
++ `size`: 1838181188 (number, required) - {INT} The size (in bytes) for the file resource.
++ `mime`: application/pdf (string, required) - The MIME type for the file resource.
 + `fileState` (enum, required) - The state or status or the file resource.
     + `StorageRequestReceived`
     + `VirusScanPending`
@@ -188,14 +188,14 @@ Represents a file resource with base properties.
 + `fileType` (enum, required) - The type of file resource.
     + `System`
     + `User`
-+ `downloadUri` (string, required) - The URI that can be used to download the file securely.
-+ `shareableUri` (string, required) - The URI that can be used to access the file without logging in.
++ `downloadUri`: https://file.dudesoln.com/accounts/2/file/123/download (string, required) - The URI that can be used to download the file securely.
++ `shareableUri`: https://file.dudesoln.com/file/public/rftuyinm3d546ft7uybinod4f578ybiunok68gyiunokm67g8yiunokm (string, required) - The URI that can be used to access the file without logging in.
 
 ## Update File Descriptor (Base File Descriptor)
 Represents a file resource with properties required for an update.
 
 ### Properties
-+ `id` (number, required) - {INT} The unique ID for the file resource.
++ `id`: 1 (number, required) - {INT} The unique ID for the file resource.
 
 ## File Descriptor (Update File Descriptor)
 Represents a file resource with all properties included.
@@ -210,7 +210,7 @@ Represents a file resource with all properties included.
 Represents a user with base properties.
 
 ### Properties
-+ `id` (number, required) - {INT} The unique ID that represents the user.
-+ `firstName` (string, required) - The first name of the user.
-+ `lastName` (string, required) - The last name of the user.
-+ `email` (string, required) - The email of the user.
++ `id`: 1 (number, required) - {INT} The ID of the user.
++ `firstName`: John (string, required) - The first name of the user.
++ `lastName`: Smith (string, required) - The last name of the user.
++ `email`: john.smith@dudesolutions.io (string, required) - The email address of the user.
