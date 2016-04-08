@@ -82,13 +82,12 @@ Any response that does not provide a ```200 OK``` response code should be treate
 # Group Files
 The file endpoints allows for the access and management of file resources.
 
-## File Descriptor Detail [/accounts/{accountId}/file/{id}{?includeAudit}]
+## File Descriptor Detail [/accounts/{accountId}/file/{id}]
 This endpoint allows for existing file descriptor data to be found and manipulated.
 
 + Parameters
     + accountId: 2 (number, required) - {INT} The account ID the resource belongs to.
     + id: 1 (number, required) - {INT} The file ID for the desired resource.
-    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### GET
 
@@ -107,12 +106,11 @@ This endpoint allows for existing file descriptor data to be found and manipulat
 
 + Response 204
 
-## File Upload [/accounts/{accountId}/file/upload{?includeAudit}]
+## File Upload [/accounts/{accountId}/file/upload]
 This endpoint allows for new file descriptor data to be created.
 
 + Parameters
     + accountId (number, required) - {INT} The account ID for the upload to be associated with.
-    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### Upload [POST]
 
