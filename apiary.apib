@@ -1,74 +1,138 @@
 FORMAT: 1A
 HOST: https://v1-file.api.dudesolutions.io
 
+USECOMMONSDKLIBRARY: TRUE
 GENERATEASYNCCODE: TRUE
+GENERATEINTERFACES: TRUE
 USEMETHODPREFIX: TRUE
 USEMODELPOSTFIX: FALSE
 USECONTROLLERPOSTFIX: FALSE
 USEENUMPOSTFIX: FALSE
 USECONSTRUCTORSFORCONFIG: TRUE
 CSHARPDEFAULTNAMESPACE: DSI.SDK.File
+JAVADEFAULTNAMESPACE: io.dudesolutions.file
+BRANDLABEL: Dude Solutions, Inc.
+USERAGENT: Dude SDK
 
 # Dude File Api
 ![Dude Solutions](https://dudesolutions.com/assets/img/logo.png)
+
+## Reference
+Good reference document: https://raw.githubusercontent.com/apiaryio/api-blueprint/master/examples/Polls%20API.md
 
 ## Authentication
 *Dude File Api* uses OAuth v2 Authentication. First you create a new (or acquire existing) OAuth v2 token using [DudeAuth](https://www.dudeauth.com/).
 
 New to *OAuth*?  Check out the [OAuth Bible](http://oauthbible.com/) for good reference material.
 
-# Group Files
-The file collection allows for file resources to be manipulated and found.
+## Media Types
+Where applicable this API uses the *JSON* media-type to represent resources.
+Requests and responses with a message-body use plain JSON to set or update resources.
 
-## Collection [/accounts/{accountId}/file/{id}]
+## Error States
+Common [HTTP Response Status Codes](https://github.com/for-GET/know-your-http-well/blob/master/status-codes.md) are used throughout this API.
+In addition to standard response codes the response object returned from the server during an exception event may contain additional information in the following JSON format:
+{
+ "message": "SOME MESSAGE",
+ "dudeReferenceId": "3523845A-4729-4CCB-9E16-01DEADF6C2DF",
+ "stackTrace": "Null, Typically"
+ }
 
-+ Parameters
-    + id (number, required) - The file ID for the desired resource.
+## Data Restriction
+Depending on the access level granted to the calling client certain data elements throughout this API will be removed and not returned.
 
-    + accountId (string, required) - The account ID the resource belongs to.
+## Dates & Times
+All dates and times are represented in [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) format. In addition, *Dude Security Api* will always provide [Coordinated Universal Time](https://en.wikipedia.org/wiki/Coordinated_Universal_Time).
+The API is capable of parsing most date and time formats, however we do require UTC dates and times be provided from all calling systems. We highly recommend you utilize the ISO-8601 standard when communicating dates and time to the API as well.
 
+## Known Issues
+None at this time
+
+## Documentation Notes
+In Progress
+
+# Group System Information
+Check API System Information
+
+## S.I. Check [/]
+Retrieve api version, vitals, links, etc.
 
 ### GET
 
 + Response 200 (application/json)
-    + Attributes (FileDescriptor)
+    + Attributes (System Information)
+
+# Group Heartbeat
+Check health of dependent services
+
+## Heartbeat Check [/heartbeat]
+The heartbeat is exposed and provided to check for availability of the service.
+Any response that does not provide a ```200 OK``` response code should be treated as an error.
+
+### GET
+
++ Response 200 (application/json)
+    + Headers
+
+            X-Dude-Api-Limit: Unlimited or Number
+            X-Dude-Api-Remaining: Unlimited or Number
+            X-Dude-Api-Server: Api Server ID
+    + Attributes (Heartbeat)
+
+# Group Files
+The file endpoints allows for the access and management of file resources.
+
+## File Descriptor Detail [/accounts/{accountId}/file/{id}]
+This endpoint allows for existing file descriptor data to be found and manipulated.
+
++ Parameters
+    + accountId: 2 (number, required) - {INT} The account ID the resource belongs to.
+    + id: 1 (number, required) - {INT} The file ID for the desired resource.
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (File Descriptor)
 
 ### PUT
 
 + Request (application/json)
-    + Attributes (FileDescriptor)
+    + Attributes (Update File Descriptor)
 
 + Response 200 (application/json)
-    + Attributes (FileDescriptor)
+    + Attributes (File Descriptor)
 
 ### DELETE
 
 + Response 204
 
-## Upload [/accounts/{accountId}/file/upload]
+## File Upload [/accounts/{accountId}/file/upload]
+This endpoint allows for new file descriptor data to be created.
 
 + Parameters
-    + accountId (string, required) - The account ID for the upload to be associated with.
-
+    + accountId (number, required) - {INT} The account ID for the upload to be associated with.
 
 ### Upload [POST]
 
-+ Response 200 (application/json)
-    + Attributes (FileDescriptor)
++ Request (application/json)
+    + Attributes (Base File Descriptor)
 
-## Download [/accounts/{accountId}/file/{id}/download]
++ Response 201 (application/json)
+    + Attributes (File Descriptor)
+
+## File Download [/accounts/{accountId}/file/{id}/download]
+This endpoint allows for an existing file resource to be downloaded.
 
 + Parameters
-    + accountId (number, required) - The account ID the resource belongs to.
-    + id (number, required) - The file ID for the desired resource.
-
+    + accountId (number, required) - {INT} The account ID the resource belongs to.
+    + id (number, required) - {INT} The file ID for the desired resource.
 
 ### Download [GET]
 
 + Response 200 (application/json)
 
-
 ## Public Download [/file/public/{token}]
+This endpoint allows for an existing file resource to be downloaded based on token access.
 
 + Parameters
     + token (string, required) - A pre-generated and self-encapsulated token to access a specific file resource.
@@ -77,54 +141,25 @@ The file collection allows for file resources to be manipulated and found.
 
 + Response 200 (application/json)
 
-
-
-# Group Heartbeat
-
-## Heartbeat [/heartbeat]
-The heartbeat is exposed and provided to check for availability of the service.
-Any response that does not provide a ```200 OK``` response code should be treated as an error.
-
-### GET
-
-+ Response 200 (application/json)
-    + Attributes (Heartbeat)
-
 # Data Structures
 
-## FileDescriptor (object)
-Represents a file resource.
+## System Information (object)
+Represents the System Information response.
 
 ### Properties
-+ `id` (number, required) - The unique ID for the file resource.
-+ `filename` (string, required) - The display filename for the file resource.
-+ `size` (number, required) - The size (in bytes) for the file resource.
-+ `mime` (string, required) - The MIME type for the file resource.
-+ `fileState` (enum, required) - The state or status or the file resource.
-    + `StorageRequestReceived`
-    + `VirusScanPending`
-    + `Uploaded`
-    + `Preprocessed`
-    + `Errored`
-+ `fileType` (enum, required) - The type of file resource.
-    + `System`
-    + `User`
-+ `downloadUri` (string, required) - The URI that can be used to download the file securely.
-+ `shareableUri` (string, required) - The URI that can be used to access the file without logging in.
-+ `createdByUser` (User, required) - The user who created the file resource.
-+ `createdDateTime` (string, optional) - The UTC date and time the file resource was created.
-+ `updatedByUser` (User, required) - The user who last updated the file resource.
-+ `updatedDateTime` (string, optional) - The UTC date and time the file resource was last updated.
++ `application`: `Dude File Api` (string, required) - The name of the application.
++ `version` : `1.0.0.0` (string, required) - The assembly version.
++ `apiVersion` : `1.0.0.0` (string, required) - The API version.
++ `vitals` (Heartbeat, required) - The state of the system dependencies.
++ `links` (array[System Links], required) - The API routes.
 
-
-## User (object)
-Represents a user.
+## System Links (object)
+Represents the API routes.
 
 ### Properties
-+ `id` (number, required) - The unique ID that represents the user.
-+ `firstName` (string, required) - The first name of the user.
-+ `lastName` (string, required) - The last name of the user.
-+ `email` (string, required) - The email of the user.
++ `endpoint` : `FileDescriptor` (string, required) - The name of the endpoint.
++ `action` : `Get` (string, required) - The REST action.
++ `route` : `/accounts/{accountId}/file/{id}{?includeAudit}` (string, required) - The route to the endpoint.
 
 ## Heartbeat (object)
 Represents a heartbeat response.
@@ -134,3 +169,46 @@ Represents a heartbeat response.
 + `filestoragevitalcheck`: true (boolean, required) - Vital check to ensure file storage provider is online.
 + `filedbvitalcheck`: true (boolean, required) - Vital check to ensure database provider is online.
 + `symantecantivirusprovidervitalcheck`: true (boolean, required) - Vital check to ensure malware provider is online.
+
+## Base File Descriptor (object)
+Represents a file resource with base properties.
+
+### Properties
++ `filename`: procedure.pdf (string, required) - The display filename for the file resource.
++ `size`: 1838181188 (number, required) - {INT} The size (in bytes) for the file resource.
++ `mime`: application/pdf (string, required) - The MIME type for the file resource.
++ `fileState` (enum, required) - The state or status or the file resource.
+    + `StorageRequestReceived`
+    + `VirusScanPending`
+    + `Uploaded`
+    + `Preprocessed`
+    + `Errored`
++ `fileType` (enum, required) - The type of file resource.
+    + `System`
+    + `User`
++ `downloadUri`: https://file.dudesoln.com/accounts/2/file/123/download (string, required) - The URI that can be used to download the file securely.
++ `shareableUri`: https://file.dudesoln.com/file/public/rftuyinm3d546ft7uybinod4f578ybiunok68gyiunokm67g8yiunokm (string, required) - The URI that can be used to access the file without logging in.
+
+## Update File Descriptor (Base File Descriptor)
+Represents a file resource with properties required for an update.
+
+### Properties
++ `id`: 1 (number, required) - {INT} The unique ID for the file resource.
+
+## File Descriptor (Update File Descriptor)
+Represents a file resource with all properties included.
+
+### Properties
++ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The date and time in ISO-8601 format the record was created.
++ `createdByUser` (Base User, optional) - Information about the user who created the record.
++ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The date and time in ISO-8601 format the record was last updated.
++ `updatedByUser` (Base User, optional) - Information about the user who last modified the record.
+
+## Base User (object)
+Represents a user with base properties.
+
+### Properties
++ `id`: 1 (number, required) - {INT} The ID of the user.
++ `firstName`: John (string, required) - The first name of the user.
++ `lastName`: Smith (string, required) - The last name of the user.
++ `email`: john.smith@dudesolutions.io (string, required) - The email address of the user.
