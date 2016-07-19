@@ -13,6 +13,9 @@ CSHARPDEFAULTNAMESPACE: DSI.SDK.File
 JAVADEFAULTNAMESPACE: io.dudesolutions.file
 BRANDLABEL: Dude Solutions, Inc.
 USERAGENT: Dude SDK
+NULLIFY404: TRUE
+VALIDATEREQUIREDPARAMETERS: FALSE
+COLLECTPARAMETERS: TRUE
 
 # Dude File Api
 
@@ -124,7 +127,7 @@ This endpoint allows for an existing file resource to be downloaded.
 
 + Parameters
     + accountId (number, required) - {INT} The account ID the resource belongs to.
-    + id (number, required) - {INT} The file ID for the desired resource.
+    + id (number, required) - {LONG} The file ID for the desired resource.
 
 ### Download [GET]
 
@@ -174,7 +177,7 @@ Represents a file resource with base properties.
 
 ### Properties
 + `filename`: procedure.pdf (string, required) - The display filename for the file resource.
-+ `size`: 1838181188 (number, required) - {INT} The size (in bytes) for the file resource.
++ `size`: 1838181188 (number, required) - {LONG} The size (in bytes) for the file resource.
 + `mime`: application/pdf (string, required) - The MIME type for the file resource.
 + `fileState` (enum, required) - The state or status or the file resource.
     + `StorageRequestReceived`
@@ -192,15 +195,15 @@ Represents a file resource with base properties.
 Represents a file resource with properties required for an update.
 
 ### Properties
-+ `id`: 1 (number, required) - {INT} The unique ID for the file resource.
++ `id`: 1 (number, required) - {LONG} The unique ID for the file resource.
 
 ## File Descriptor (Update File Descriptor)
 Represents a file resource with all properties included.
 
 ### Properties
-+ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The date and time in ISO-8601 format the record was created.
++ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The date and time in ISO-8601 format the record was created.
 + `createdByUser` (Base User, optional) - Information about the user who created the record.
-+ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The date and time in ISO-8601 format the record was last updated.
++ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The date and time in ISO-8601 format the record was last updated.
 + `updatedByUser` (Base User, optional) - Information about the user who last modified the record.
 
 ## Base User (object)
