@@ -92,7 +92,6 @@ This endpoint allows for existing file descriptor data to be found and manipulat
 ### GET
 
 + Response 200 (application/json)
-    {HttpResponse}
     + Attributes (File Descriptor)
 
 ### PUT
@@ -130,7 +129,8 @@ This endpoint allows for an existing file resource to be downloaded.
 
 ### Download [GET]
 
-+ Response 200 (application/json)
++ Response 200
+    + Attributes (Binary)
 
 ## Public Download [/file/public/{token}]
 This endpoint allows for an existing file resource to be downloaded based on token access.
