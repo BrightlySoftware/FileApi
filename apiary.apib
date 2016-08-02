@@ -93,7 +93,7 @@ This endpoint allows for existing file descriptor data to be found and manipulat
 
 ### GET
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes (File Descriptor)
 
 ### PUT
@@ -112,12 +112,11 @@ This endpoint allows for existing file descriptor data to be found and manipulat
 This endpoint allows for new file descriptor data to be created.
 
 + Parameters
-    + accountId (number, required) - {INT} The account ID for the upload to be associated with.
+    + accountId: 2 (number, required) - {INT} The account ID for the upload to be associated with.
 
 ### Upload [POST]
 
-+ Request (application/json)
-    + Attributes (Base File Descriptor)
++ Request (multipart/form-data)
 
 + Response 201 (application/json)
     + Attributes (File Descriptor)
@@ -126,22 +125,26 @@ This endpoint allows for new file descriptor data to be created.
 This endpoint allows for an existing file resource to be downloaded.
 
 + Parameters
-    + accountId (number, required) - {INT} The account ID the resource belongs to.
-    + id (number, required) - {LONG} The file ID for the desired resource.
+    + accountId: 2 (number, required) - {INT} The account ID the resource belongs to.
+    + id: 1 (number, required) - {LONG} The file ID for the desired resource.
 
 ### Download [GET]
 
-+ Response 200 (application/json)
++ Response 200 (application/octet-stream)
+{HttpResponse}
+    + Attributes(Binary)
 
 ## Public Download [/file/public/{token}]
 This endpoint allows for an existing file resource to be downloaded based on token access.
 
 + Parameters
-    + token (string, required) - A pre-generated and self-encapsulated token to access a specific file resource.
+    + token: dsafhsfklamfksl (string, required) - A pre-generated and self-encapsulated token to access a specific file resource.
 
 ### Download [GET]
 
-+ Response 200 (application/json)
++ Response 200 (application/octet-stream)
+{HttpResponse}
+    + Attributes(Binary)
 
 # Data Structures
 
