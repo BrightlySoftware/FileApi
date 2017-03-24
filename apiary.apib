@@ -238,7 +238,12 @@ Represents a user with base properties.
 Represents thumbnail information for images.
 
 ### Properties
-+ `smallPath`: `852e06ae-e5f9-4df4-9b9d-7426d5ac3ca0` (string, optional) - The path of the file pointing to the storage location of the small thumbnail.
-+ `smallShareableUri`: `https://file.dudesoln.com/file/public/b9b053a2d0974a35ae343011b1f9b975cfb2c1dbcbbe4c2eb135343829c6075c` (string, optional) The shareable URI pointing to the small thumbnail.
-+ `mediumPath`: `a2e47db6-1e7d-4d6c-937e-2783eba44d89` (string, optional) - The path of the file pointing to the storage location of the medium thumbnail.
-+ `mediumShareableUri`: `https://file.dudesoln.com/file/public/394728bc52654ae4808652d40dca41f88c62ba321daa47a9b5ceeb6b2deec3d0` (string, optional) The shareable URI pointing to the medium thumbnail.
++ `small` (Thumbnail, optional) - Information about the small thumbnail.
++ `medium` (Thumbnail, optional) - Information about the medium thumbnail.
+
+## Thumbnail (object)
+Represents information about a single thumbnail.
+
+### Properties
++ `shareableUri`: `https://file.dudesoln.com/file/public/b9b053a2d0974a35ae343011b1f9b975cfb2c1dbcbbe4c2eb135343829c6075c/thumbs/small` (string, optional) The shareable URI pointing to a thumbnail.
++ `mime`: `image/jpeg` (string, optional) The mime type of the thumbnail.
