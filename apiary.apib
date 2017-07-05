@@ -16,6 +16,7 @@ USERAGENT: Dude SDK
 NULLIFY404: TRUE
 VALIDATEREQUIREDPARAMETERS: FALSE
 COLLECTPARAMETERS: TRUE
+ARRAYSERIALIZATION: Plain
 
 # Dude File Api
 
@@ -108,15 +109,16 @@ This endpoint allows for existing file descriptor data to be found and manipulat
 
 + Response 204
 
-## File Upload [/accounts/{accountId}/file/upload]
+## File Upload [/accounts/{accountId}/file/upload{?isTemporary}]
 This endpoint allows for new file descriptor data to be created.
 
 + Parameters
     + accountId: 2 (number, required) - {INT} The account ID for the upload to be associated with.
+    + isTemporary: false (boolean, optional) - Flag to indicate whether or not this file should be deleted when the cleanup process runs. Default is false.
 
 ### Upload [POST]
 + Parameters
-    + toUpload (file, required) - File to upload.
+    + toUpload (file, required) - {FILE} File to upload.
 
 + Request (multipart/form-data)
 
@@ -134,19 +136,29 @@ This endpoint allows for an existing file resource to be downloaded.
 
 + Response 200 (application/octet-stream)
 {HttpResponse}
-    + Attributes(Binary)
 
-## Public Download [/file/public/{token}]
+## Public Download [/file/public/{token}{?inline}]
 This endpoint allows for an existing file resource to be downloaded based on token access.
 
 + Parameters
     + token: dsafhsfklamfksl (string, required) - A pre-generated and self-encapsulated token to access a specific file resource.
+    + inline: false (boolean, optional) - Flag to indicate whether or not the content disposition should be changed to inline from the default attachment.  Default is false.
 
-### Download [GET]
+### Public Download [GET]
 
 + Response 200 (application/octet-stream)
 {HttpResponse}
-    + Attributes(Binary)
+
+## Public Thumbnail Download [/file/public/{token}/thumbs/{thumbnailSize}]
+This endpoint allows for a thumbnail of a file resource to be downloaded based on token access.
+
++ Parameters
+    + token: dsafhsfklamfksl (string, required) - A pre-generated and self-encapsulated token to access a specific file resource.
+    + thumbnailSize: small|medium (string, required) - A thumbnail size. Two sizes are available - small and medium.
+
+### DownloadThumb [GET]
+
++ Response 200 (application/octet-stream)
 
 # Data Structures
 
@@ -184,6 +196,7 @@ Represents a file resource with base properties.
 + `filename`: procedure.pdf (string, required) - The display filename for the file resource.
 + `size`: 1838181188 (number, required) - {LONG} The size (in bytes) for the file resource.
 + `mime`: application/pdf (string, required) - The MIME type for the file resource.
++ `thumbnails`: (Thumbnails, optional) - Thumbnail information for uploaded images.
 + `fileState` (enum, required) - The state or status or the file resource.
     + `StorageRequestReceived`
     + `VirusScanPending`
@@ -195,6 +208,7 @@ Represents a file resource with base properties.
     + `User`
 + `downloadUri`: https://file.dudesoln.com/accounts/2/file/123/download (string, required) - The URI that can be used to download the file securely.
 + `shareableUri`: https://file.dudesoln.com/file/public/rftuyinm3d546ft7uybinod4f578ybiunok68gyiunokm67g8yiunokm (string, required) - The URI that can be used to access the file without logging in.
++ `isTemporary`: (boolean, optional) - The flag to indicate whether or not to delete the file when the cleanup process runs. Default is false.
 
 ## Update File Descriptor (Base File Descriptor)
 Represents a file resource with properties required for an update.
@@ -219,3 +233,17 @@ Represents a user with base properties.
 + `firstName`: John (string, required) - The first name of the user.
 + `lastName`: Smith (string, required) - The last name of the user.
 + `email`: john.smith@dudesolutions.io (string, required) - The email address of the user.
+
+## Thumbnails (object)
+Represents thumbnail information for images.
+
+### Properties
++ `small` (Thumbnail, optional) - Information about the small thumbnail.
++ `medium` (Thumbnail, optional) - Information about the medium thumbnail.
+
+## Thumbnail (object)
+Represents information about a single thumbnail.
+
+### Properties
++ `shareableUri`: `https://file.dudesoln.com/file/public/b9b053a2d0974a35ae343011b1f9b975cfb2c1dbcbbe4c2eb135343829c6075c/thumbs/small` (string, optional) The shareable URI pointing to a thumbnail.
++ `mime`: `image/jpeg` (string, optional) The mime type of the thumbnail.
