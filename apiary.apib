@@ -109,12 +109,15 @@ This endpoint allows for existing file descriptor data to be found and manipulat
 
 + Response 204
 
-## File Upload [/accounts/{accountId}/file/upload{?isTemporary}]
+## File Upload [/accounts/{accountId}/file/upload{?isTemporary, minWidth, minHeight, allowedUploadTypes}]
 This endpoint allows for new file descriptor data to be created.
 
 + Parameters
     + accountId: 2 (number, required) - {INT} The account ID for the upload to be associated with.
     + isTemporary: false (boolean, optional) - Flag to indicate whether or not this file should be deleted when the cleanup process runs. Default is false.
+	+ minWidth: 100 (int, optional) - Should be included for images. The minimum width of the image.
+	+ minHeight: 100 (int, optional) - Should be included for images. The minimum height of the image.
+	+ allowedUploadTypes: image;application/excel (string, optional) - Should be included for images. The allowed file types for upload.
 
 ### Upload [POST]
 + Parameters
